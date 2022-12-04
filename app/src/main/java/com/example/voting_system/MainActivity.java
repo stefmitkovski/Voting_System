@@ -13,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
 
     String username = "";
@@ -30,8 +32,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }else{
             Toolbar top_toolbar = (Toolbar) findViewById(R.id.top_toolbar);
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_toolbar);
             top_toolbar.setTitle(type);
             setSupportActionBar(top_toolbar);
+
+            if(type.equals("Администратор")){
+                bottomNavigationView.getMenu().removeItem(R.id.current_polls);
+            }else{
+                bottomNavigationView.getMenu().removeItem(R.id.create_pools);
+            }
+
+            bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+                @Override
+                public void onNavigationItemReselected(@NonNull MenuItem item) {
+                    Toast.makeText(MainActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -39,24 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_menu,menu);
-
-        Toolbar bottom_menu = (Toolbar) findViewById(R.id.bottom_toolbar);
-        bottom_menu.inflateMenu(R.menu.bottom_menu);
-        if(type.equals("Гласач")){
-            MenuItem item = bottom_menu.getMenu().findItem(R.id.create_pools);
-            item.setVisible(false);
-        }else{
-            MenuItem item = bottom_menu.getMenu().findItem(R.id.current_polls);
-            item.setVisible(false);
-        }
-
-        bottom_menu.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
         return super.onCreateOptionsMenu(menu);
     }
 

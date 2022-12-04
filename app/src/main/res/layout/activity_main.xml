@@ -14,11 +14,15 @@
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         />
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+        app:menu="@menu/bottom_menu"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:itemTextColor="@android:color/white"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
