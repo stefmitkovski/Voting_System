@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/current_polls"
+        android:checkable="true"
+        android:title="Гласање"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/results_polls"
+        android:checkable="true"
+        android:title="Резултати"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/create_pools"
+        android:checkable="true"
+        android:title="Креирај"
+        app:showAsAction="always" />
+</menu>
