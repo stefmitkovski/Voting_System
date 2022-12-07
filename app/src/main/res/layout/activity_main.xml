@@ -15,15 +15,13 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_toolbar"
+    <fragment
+        android:id="@+id/bottom_menu_fragment"
+        android:name="com.example.voting_system.BottomMenuFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_bottom_menu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        app:itemTextColor="@android:color/white"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

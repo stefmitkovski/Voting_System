@@ -25,26 +25,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        type = intent.getStringExtra("type");
-        if(username == null || type == null){
-            startActivity(new Intent(this, LoginActivity.class));
-        }else{
-            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_toolbar);
-
-            if(type.equals("Администратор")){
-                bottomNavigationView.getMenu().removeItem(R.id.current_polls);
-            }else{
-                bottomNavigationView.getMenu().removeItem(R.id.create_pools);
-            }
-
-            bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-                @Override
-                public void onNavigationItemReselected(@NonNull MenuItem item) {
-                    Toast.makeText(MainActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 }
