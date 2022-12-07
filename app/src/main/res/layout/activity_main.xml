@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/top_toolbar"
+    <fragment
+        android:id="@+id/top_menu_fragment"
+        android:name="com.example.voting_system.TopMenuFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_top_menu"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -31,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if(username == null || type == null){
             startActivity(new Intent(this, LoginActivity.class));
         }else{
-            Toolbar top_toolbar = (Toolbar) findViewById(R.id.top_toolbar);
             BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_toolbar);
-            top_toolbar.setTitle(type);
-            setSupportActionBar(top_toolbar);
 
             if(type.equals("Администратор")){
                 bottomNavigationView.getMenu().removeItem(R.id.current_polls);
@@ -49,24 +46,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = null;
-        if(item.getItemId() == R.id.logout){
-            username="";
-            type = "";
-            intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
