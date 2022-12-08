@@ -65,12 +65,20 @@ public class LoginFragment extends Fragment {
         Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
         if(c.moveToFirst()){
             int i = c.getColumnIndex("type");
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra("username",username);
-            intent.putExtra("type",c.getString(i));
-            startActivity(intent);
+            if(c.getString(i).equals("Администратор")){
+                Intent intent = new Intent(getActivity(), ResultActivity.class);
+                intent.putExtra("username",username);
+                intent.putExtra("type",c.getString(i));
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("username",username);
+                intent.putExtra("type",c.getString(i));
+                startActivity(intent);
+            }
+
         }else{
-            Toast.makeText(getActivity(), "Не постои корисникот", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Погрешно корисничко име или лозинка", Toast.LENGTH_SHORT).show();
         }
         c.close();
     }

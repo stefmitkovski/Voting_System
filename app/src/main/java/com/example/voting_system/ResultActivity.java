@@ -1,27 +1,16 @@
 package com.example.voting_system;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity {
 
     RecyclerView voting_polls;
     PollAdapter pAdapter;
@@ -29,12 +18,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_result);
 
-        List<String> values = Arrays.asList("1", "2", "3",
-                "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16");
+        List<String> values = Arrays.asList("16", "15", "14",
+                "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1");
 
-        voting_polls = (RecyclerView) findViewById(R.id.list_voting_polls);
+        voting_polls = (RecyclerView) findViewById(R.id.list_result_polls);
 
         voting_polls.setLayoutManager(new LinearLayoutManager(this));
 

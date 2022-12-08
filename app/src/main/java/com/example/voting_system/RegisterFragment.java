@@ -87,9 +87,7 @@ public class RegisterFragment extends Fragment {
                 Toast.makeText(getActivity(), "Веќе таков корисник веќе постои", Toast.LENGTH_SHORT).show();
             }else{
                 db.execSQL("INSERT INTO users (username, password, type) VALUES('" + username + "', '" + password +"', '" + type +"' );");
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                intent.putExtra("username",username);
-                intent.putExtra("type",type);
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
                 startActivity(intent);
             }
         }

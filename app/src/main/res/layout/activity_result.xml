@@ -16,7 +16,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_voting_polls"
+        android:id="@+id/list_result_polls"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
