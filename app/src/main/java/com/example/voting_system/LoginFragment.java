@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(username.getText().toString().trim() == "" || password.getText().toString().trim() == ""){
+                    if(username.getText().toString().trim().equals("") || password.getText().toString().trim().equals("")){
                         Toast.makeText(getActivity(), "Заборавивте да внесете корисничко име или лозинка", Toast.LENGTH_SHORT).show();
                     }else{
                         checkCredentials(username.getText().toString().trim(),password.getText().toString().trim());
@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
         if(c.moveToFirst()){
             int i = c.getColumnIndex("type");
             if(c.getString(i).equals("Администратор")){
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
+                Intent intent = new Intent(getActivity(), ResultActivity.class); // Треба ResultActivity.class
                 intent.putExtra("username",username);
                 intent.putExtra("type",c.getString(i));
                 startActivity(intent);

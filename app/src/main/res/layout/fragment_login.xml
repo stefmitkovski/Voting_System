@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:hint="Корисничко име"
-        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
         android:layout_marginTop="40dp"
         />
 
@@ -40,7 +40,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:hint="Лозинка"
         android:inputType="textPassword"
-        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:layout_marginTop="10dp"
         />
 

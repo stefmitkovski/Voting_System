@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateActivity">
+
+    <fragment
+        android:id="@+id/top_menu_fragment"
+        android:name="com.example.voting_system.TopMenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_top_menu"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/create_button"
+        app:layout_constraintBottom_toTopOf="@id/bottom_menu_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Додади"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/submit_button"
+        ></Button>
+    <Button
+        android:id="@+id/submit_button"
+        app:layout_constraintBottom_toTopOf="@id/bottom_menu_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Објави"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/create_button"
+        ></Button>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/top_menu_fragment">
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_menu_fragment"
+        android:paddingBottom="200dp"
+        >
+    </LinearLayout>
+    </ScrollView>
+
+    <fragment
+        android:id="@+id/bottom_menu_fragment"
+        android:name="com.example.voting_system.BottomMenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:layout="@layout/fragment_bottom_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

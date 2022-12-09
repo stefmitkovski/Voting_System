@@ -39,6 +39,7 @@ public class RegisterFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Button btn = (Button) getActivity().findViewById(R.id.submit_register);
+        Button back = (Button) getActivity().findViewById(R.id.backto_login);
         EditText username  = (EditText) getActivity().findViewById(R.id.username_register);
         EditText password  = (EditText) getActivity().findViewById(R.id.password_register);
         EditText password_confirm  = (EditText) getActivity().findViewById(R.id.password_confirm);
@@ -51,6 +52,13 @@ public class RegisterFragment extends Fragment {
 
                 type = (RadioButton) getActivity().findViewById(selectedId);
 
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
 

@@ -2,16 +2,14 @@ package com.example.voting_system;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -52,7 +50,28 @@ public class BottomMenuFragment extends Fragment {
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Toast.makeText(getActivity(), ""+item.getTitle(), Toast.LENGTH_SHORT).show();
+                    if(item.getTitle().toString().equals("Гласање")){
+                        if(!getActivity().getClass().getSimpleName().equals("MainActivity")){
+                        Intent intent_redirect = new Intent(getActivity(), MainActivity.class);
+                        intent_redirect.putExtra("type",type);
+                        intent_redirect.putExtra("username", username);
+                        startActivity(intent_redirect);
+                        }
+                    }else if (item.getTitle().toString().equals("Резултати")){
+                        if(!getActivity().getClass().getSimpleName().equals("ResultActivity")){
+                        Intent intent_redirect = new Intent(getActivity(), ResultActivity.class);
+                        intent_redirect.putExtra("type",type);
+                        intent_redirect.putExtra("username", username);
+                        startActivity(intent_redirect);
+                        }
+                    }else if(item.getTitle().toString().equals("Креирај")){
+                        if(!getActivity().getClass().getSimpleName().equals("CreateActivity")){
+                        Intent intent_redirect = new Intent(getActivity(), CreateActivity.class);
+                        intent_redirect.putExtra("type",type);
+                        intent_redirect.putExtra("username", username);
+                        startActivity(intent_redirect);
+                        }
+                    }
                     return true;
                 }
             });
