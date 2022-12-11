@@ -29,7 +29,6 @@ import java.util.List;
 public class CreateActivity extends AppCompatActivity {
 
     Integer i = 1;
-    Integer flag = 0;
     SQLiteDatabase db;
 
     @Override
@@ -84,42 +83,36 @@ public class CreateActivity extends AppCompatActivity {
                 }
 
                 if(!title.getText().toString().trim().isEmpty()) {
-                    for (int k = 1; k < layout.getChildCount(); k += 2) {
-                        EditText question = (EditText) layout.getChildAt(k - 1);
-                        EditText choices = (EditText) layout.getChildAt(k);
-                        if (question.getText().toString().trim().isEmpty() || choices.getText().toString().trim().isEmpty()) {
-                            continue;
-                        }
+                    Cursor c = db.rawQuery("SELECT * FROM polls WHERE title='" + title.getText().toString() + "'", null);
+                    if (c.moveToFirst()) {
+                        Toast.makeText(CreateActivity.this, "Веќе постои таква анкета", Toast.LENGTH_SHORT).show();
+                    } else {
+                        db.execSQL("INSERT INTO polls (title, visible) VALUES('" + title.getText().toString() + "', '" + "yes" + "');");
+                        for (int k = 1; k < layout.getChildCount(); k += 2) {
+                            EditText question = (EditText) layout.getChildAt(k - 1);
+                            EditText choices = (EditText) layout.getChildAt(k);
+                            if (question.getText().toString().trim().isEmpty() || choices.getText().toString().trim().isEmpty()) {
+                                continue;
+                            }
 
-                        List<String> list = new ArrayList<String>(Arrays.asList(choices.getText().toString().trim().split(",")));
-                        if (list.size() < 5) {
-                            Toast.makeText(CreateActivity.this, "Внесовте помалце од 5 можности на " + k + "-то прашање", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Cursor c = db.rawQuery("SELECT * FROM polls WHERE title='" + title.getText().toString() + "'",null);
-                            if(c.moveToFirst()){
-                                Toast.makeText(CreateActivity.this, "Веќе постои таква анкета", Toast.LENGTH_SHORT).show();
-                            }else {
-                                if (flag == 0) {
-                                    db.execSQL("INSERT INTO polls (title, visible) VALUES('" + title.getText().toString() + "', '" + "yes" + "');");
-                                    db.execSQL("INSERT INTO questions (title, question, choises) VALUES ('" + title.getText().toString() + "', '" + question.getText().toString() + "', '" + choices.getText().toString() + "');");
-                                    flag = 1;
-                                } else {
-                                    db.execSQL("INSERT INTO questions (title, question, choises) VALUES ('" + title.getText().toString() + "', '" + question.getText().toString() + "', '" + choices.getText().toString() + "');");
-                                }
+                            List<String> list = new ArrayList<String>(Arrays.asList(choices.getText().toString().trim().split(",")));
+                            if (list.size() < 5) {
+                                Toast.makeText(CreateActivity.this, "Внесовте помалце од 5 можности на " + k + "-то прашање", Toast.LENGTH_SHORT).show();
+                            } else {
+                                db.execSQL("INSERT INTO questions (title, question, choises) VALUES ('" + title.getText().toString() + "', '" + question.getText().toString() + "', '" + choices.getText().toString() + "');");
                             }
                         }
+                        Cursor check = db.rawQuery("SELECT * FROM polls WHERE title='" + title.getText().toString() + "'", null);
+                        if (check.getCount() > 0) {
+                            Intent successful_intent = new Intent(view.getContext(), MainActivity.class);
+                            successful_intent.putExtra("type", getIntent().getStringExtra("type"));
+                            successful_intent.putExtra("username", getIntent().getStringExtra("username"));
+                            successful_intent.putExtra("title", title.getText().toString());
+                            successful_intent.putExtra("timer", timer);
+                            startActivity(successful_intent);
+                        }
                     }
-
-                    Cursor c = db.rawQuery("SELECT * FROM polls WHERE title='" + title.getText().toString() + "'",null);
-                    if(c.moveToFirst()){
-                        Intent successful_intent = new Intent(view.getContext(), MainActivity.class);
-                        successful_intent.putExtra("type",getIntent().getStringExtra("type"));
-                        successful_intent.putExtra("username",getIntent().getStringExtra("username"));
-                        successful_intent.putExtra("title",title.getText().toString());
-                        successful_intent.putExtra("timer",timer);
-                        startActivity(successful_intent);
-                    }
-                }else{
+                } else{
                     Toast.makeText(CreateActivity.this, "Заборавивте да внесете наслов", Toast.LENGTH_SHORT).show();
                 }
             }

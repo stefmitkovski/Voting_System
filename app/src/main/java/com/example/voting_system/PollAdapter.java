@@ -1,6 +1,7 @@
 package com.example.voting_system;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
     private int rowLayout;
     private Context mContext;
     private int counter;
+    private String username;
+    private String type;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView text;
@@ -34,10 +37,12 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
         }
     }
 
-    public PollAdapter(List<String> myList, int rowLayout, Context context){
+    public PollAdapter(List<String> myList, int rowLayout, Context context, String username, String type){
         this.myList = myList;
         this.rowLayout = rowLayout;
         this.mContext = context;
+        this.username = username;
+        this.type = type;
     }
 
 
@@ -53,6 +58,16 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
         String entry = myList.get(position);
         String[] array = entry.split(",");
         holder.text.setText(array[0]);
+        holder.text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent survey_intent = new Intent(mContext, SurveyVotingActivity.class);
+                survey_intent.putExtra("username", username);
+                survey_intent.putExtra("type", type);
+                survey_intent.putExtra("title",array[0]);
+                mContext.startActivity(survey_intent);
+            }
+        });
         counter = Integer.valueOf(array[1]);
 
         if(holder.timer != null){

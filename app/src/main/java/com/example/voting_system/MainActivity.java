@@ -1,6 +1,7 @@
 package com.example.voting_system;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -38,12 +39,17 @@ public class MainActivity extends AppCompatActivity {
             String item = getIntent().getStringExtra("title") + "," + getIntent().getStringExtra("timer");
             values.add(item);
 
-            pAdapter = new PollAdapter(values, R.layout.polls, this);
+            pAdapter = new PollAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), getIntent().getStringExtra("type"));
 
             voting_polls.setAdapter(pAdapter);
+
+            Intent intent = new Intent(this, ResultActivity.class);
+            intent.putExtra("username",getIntent().getStringExtra("username"));
+            intent.putExtra("type",getIntent().getStringExtra("type"));
+            startActivity(intent);
         }
 
-        pAdapter = new PollAdapter(values, R.layout.polls, this);
+        pAdapter = new PollAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), getIntent().getStringExtra("type"));
 
         voting_polls.setAdapter(pAdapter);
     }
