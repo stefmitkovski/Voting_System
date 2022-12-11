@@ -13,14 +13,24 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/poll"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"
+            android:gravity="left|center"
             android:textSize="24sp"
+            />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="right"
             />
 
     </RelativeLayout>

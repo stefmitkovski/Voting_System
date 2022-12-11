@@ -4,16 +4,19 @@
     <item
         android:id="@+id/current_polls"
         android:checkable="true"
+        android:icon="@drawable/ic_baseline_ballot_24"
         android:title="Гласање"
         app:showAsAction="always" />
     <item
         android:id="@+id/results_polls"
         android:checkable="true"
+        android:icon="@drawable/ic_baseline_poll_24"
         android:title="Резултати"
         app:showAsAction="always" />
     <item
         android:id="@+id/create_pools"
         android:checkable="true"
+        android:icon="@drawable/ic_baseline_create_24"
         android:title="Креирај"
         app:showAsAction="always" />
 </menu>

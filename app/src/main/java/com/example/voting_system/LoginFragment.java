@@ -59,8 +59,10 @@ public class LoginFragment extends Fragment {
 
     public void checkCredentials(String username, String password) {
         SQLiteDatabase db;
-        db = getActivity().openOrCreateDatabase("users", Context.MODE_PRIVATE,null);
+        db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL, password VARCHAR NOT NULL, type VARCHAR NOT NULL);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS polls(title VARCHAR NOT NULL PRIMARY KEY, visible VARCHAR NOT NULL);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS questions(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, question VARCHAR NOT NULL, choises VARCHAR NOT NULL, FOREIGN KEY(title) REFERENCES polls(title));");
 
         Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
         if(c.moveToFirst()){

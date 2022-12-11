@@ -14,7 +14,6 @@
         tools:layout="@layout/fragment_top_menu"
         app:layout_constraintTop_toTopOf="parent"
         />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_voting_polls"
         android:scrollbars="vertical"

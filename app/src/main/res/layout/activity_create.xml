@@ -15,6 +15,26 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Внеси го насловод на анкетата"
+        app:layout_constraintTop_toBottomOf="@id/top_menu_fragment"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        ></EditText>
+    <Spinner
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:entries="@array/minutes"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        ></Spinner>
+
     <Button
         android:id="@+id/create_button"
         app:layout_constraintBottom_toTopOf="@id/bottom_menu_fragment"
@@ -41,7 +61,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/top_menu_fragment">
+        app:layout_constraintTop_toBottomOf="@id/timer">
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
@@ -50,7 +70,6 @@
         android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_menu_fragment"
         android:paddingBottom="200dp"
         >
     </LinearLayout>

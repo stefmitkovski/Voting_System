@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Voting_System</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="minutes">
+        <item>5 минути</item>
+        <item>10 минути</item>
+        <item>15 минути</item>
+        <item>30 минути</item>
+        <item>60 минути</item>
+    </string-array>
 </resources>

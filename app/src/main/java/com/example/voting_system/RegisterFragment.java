@@ -79,7 +79,7 @@ public class RegisterFragment extends Fragment {
 
     public void createUser(String username, String password, String type) {
         SQLiteDatabase db;
-        db = getActivity().openOrCreateDatabase("users", Context.MODE_PRIVATE,null);
+        db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL, password VARCHAR NOT NULL, type VARCHAR);");
         int flag = 0;
         if(type.equals("Администратор")) {
