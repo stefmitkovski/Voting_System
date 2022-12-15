@@ -50,7 +50,7 @@ public class ResultActivity extends AppCompatActivity {
                 values = new ArrayList<>();
             }
 
-            prAdapter = new PollResultAdapter(values, R.layout.polls, this);
+            prAdapter = new PollResultAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), "Администратор");
 
             result_polls.setAdapter(prAdapter);
 
@@ -69,7 +69,7 @@ public class ResultActivity extends AppCompatActivity {
                 values = new ArrayList<>();
             }
 
-            prAdapter = new PollResultAdapter(values, R.layout.polls, this);
+            prAdapter = new PollResultAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), "Гласач");
 
             result_polls.setAdapter(prAdapter);
         }

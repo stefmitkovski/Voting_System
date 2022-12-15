@@ -16,6 +16,8 @@ public class PollResultAdapter extends RecyclerView.Adapter<PollResultAdapter.Vi
     private static List<String> myList;
     private int rowLayout;
     private Context mContext;
+    private String username;
+    private String type;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
@@ -26,10 +28,12 @@ public class PollResultAdapter extends RecyclerView.Adapter<PollResultAdapter.Vi
         }
     }
 
-    public PollResultAdapter(List<String> myList, int rowLayout, Context context){
+    public PollResultAdapter(List<String> myList, int rowLayout, Context context, String username, String type){
         this.myList = myList;
         this.rowLayout = rowLayout;
         this.mContext = context;
+        this.username = username;
+        this.type = type;
     }
 
     @NonNull
@@ -44,12 +48,16 @@ public class PollResultAdapter extends RecyclerView.Adapter<PollResultAdapter.Vi
         String entry = myList.get(position);
         holder.title.setText(entry);
 
-//        holder.title.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(,MainActivity.class)
-//            }
-//        });
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,SurveyResultActivity.class);
+                intent.putExtra("title",entry);
+                intent.putExtra("username", username);
+                intent.putExtra("type", type);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

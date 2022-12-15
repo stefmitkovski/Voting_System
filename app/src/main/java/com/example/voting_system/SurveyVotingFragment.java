@@ -36,7 +36,7 @@ public class SurveyVotingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_survey_voting, container, false);
-    }
+    }//
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
