@@ -79,7 +79,6 @@ public class CreateActivity extends AppCompatActivity {
                     case "60 минути":
                         timer = "60";
                         break;
-                    default: timer = "5";
                 }
 
                 if(!title.getText().toString().trim().isEmpty()) {
@@ -94,6 +93,11 @@ public class CreateActivity extends AppCompatActivity {
                             if (question.getText().toString().trim().isEmpty() || choices.getText().toString().trim().isEmpty()) {
                                 continue;
                             }
+
+                            Cursor exist = db.rawQuery("SELECT * FROM questions WHERE title='" + title.getText().toString() + "' AND question='" + question.getText().toString() + "'",null);
+                            if(exist.moveToFirst()){
+                                continue;
+                            }   // Ако веќе постои стакво прашање во анкетата
 
                             List<String> list = new ArrayList<String>(Arrays.asList(choices.getText().toString().trim().split(",")));
                             if (list.size() < 5) {

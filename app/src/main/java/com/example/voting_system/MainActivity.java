@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         pAdapter = new PollAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), getIntent().getStringExtra("type"));
 
         voting_polls.setAdapter(pAdapter);
+//
+//        db = openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
+//        Cursor items = db.rawQuery("SELECT * FROM polls WHERE visible='yes';",null);
+//
+//        if(items.moveToFirst()) {
+//            while (!items.isAfterLast()) {
+//                values.add(items.getString(items.getColumnIndex("title")));
+//                items.moveToNext();
+//            }
+//        }
     }
 
     public void updateVisibility(String value){

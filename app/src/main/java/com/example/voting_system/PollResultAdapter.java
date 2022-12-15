@@ -1,6 +1,7 @@
 package com.example.voting_system;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,14 @@ public class PollResultAdapter extends RecyclerView.Adapter<PollResultAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull PollResultAdapter.ViewHolder holder, int position) {
         String entry = myList.get(position);
-        String[] array = entry.split(",");
-        holder.title.setText(array[0]);
+        holder.title.setText(entry);
+
+//        holder.title.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(,MainActivity.class)
+//            }
+//        });
     }
 
     @Override

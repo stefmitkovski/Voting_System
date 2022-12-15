@@ -63,10 +63,10 @@ public class SurveyVotingFragment extends Fragment {
                 for(int i=0;i<choises.length;i++){
                     RadioButton button = new RadioButton(getContext());
                     button.setText(choises[i]);
-                    if(i == 0){
-                        button.isChecked();
-                    }
                     rgroup.addView(button);
+                    if(i == 0){
+                        rgroup.check(button.getId());
+                    }
                 }
 
                 layout.addView(question);
@@ -74,5 +74,6 @@ public class SurveyVotingFragment extends Fragment {
                 questions.moveToNext();
             }
         }
+        db.close();
     }
 }
