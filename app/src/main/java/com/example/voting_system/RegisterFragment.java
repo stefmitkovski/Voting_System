@@ -66,7 +66,7 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                if(username.getText().toString().trim() == "" || password.getText().toString().trim() == ""  || password_confirm.getText().toString().trim() == "") {
+                if(username.getText().toString().trim().equals("") || password.getText().toString().trim().equals("")  || password_confirm.getText().toString().trim().equals("")) {
                     Toast.makeText(getActivity(), "Заборавивте да внесете корисничко име или лозинка", Toast.LENGTH_SHORT).show();
                 }else if(!password.getText().toString().trim().equals(password_confirm.getText().toString().trim())){
                     Toast.makeText(getActivity(), "Внесовте различни лозинки", Toast.LENGTH_SHORT).show();
@@ -80,19 +80,10 @@ public class RegisterFragment extends Fragment {
     public void createUser(String username, String password, String type) {
         SQLiteDatabase db;
         db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR NOT NULL, password VARCHAR NOT NULL, type VARCHAR);");
-        int flag = 0;
-        if(type.equals("Администратор")) {
-            Cursor search_admin = db.rawQuery("SELECT * FROM users WHERE type='Администратор'", null);
-            if (search_admin.moveToFirst()) {
-                flag = 1;
-            }
-            search_admin.close();
-        }
-        Toast.makeText(getActivity(), ""+flag, Toast.LENGTH_SHORT).show();
-        Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
-            if(flag == 1 || c.moveToFirst()){
-                Toast.makeText(getActivity(), "Веќе таков корисник веќе постои", Toast.LENGTH_SHORT).show();
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL);");
+        Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "'",null);
+            if(c.moveToFirst()){
+                Toast.makeText(getActivity(), "Таков корисник веќе постои", Toast.LENGTH_SHORT).show();
             }else{
                 db.execSQL("INSERT INTO users (username, password, type) VALUES('" + username + "', '" + password +"', '" + type +"' );");
                 Intent intent = new Intent(getActivity(),LoginActivity.class);

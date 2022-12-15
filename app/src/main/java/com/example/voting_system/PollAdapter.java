@@ -73,6 +73,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
         if(holder.timer != null){
             holder.timer.cancel();
         }
+
         holder.timer = new CountDownTimer(counter*1000,1000){
             @Override
             public void onTick(long l) {

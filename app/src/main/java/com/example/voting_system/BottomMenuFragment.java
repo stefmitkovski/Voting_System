@@ -41,11 +41,11 @@ public class BottomMenuFragment extends Fragment {
         } else {
             BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().findViewById(R.id.bottom_toolbar);
 
-//            if (type.equals("Администратор")) {
-//                bottomNavigationView.getMenu().removeItem(R.id.current_polls);
-//            } else {
-//                bottomNavigationView.getMenu().removeItem(R.id.create_pools);
-//            }
+            if (type.equals("Администратор")) {
+                bottomNavigationView.getMenu().removeItem(R.id.current_polls);
+            } else {
+                bottomNavigationView.getMenu().removeItem(R.id.create_pools);
+            }
 
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
