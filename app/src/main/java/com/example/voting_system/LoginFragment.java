@@ -17,9 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
 
 
 public class LoginFragment extends Fragment {
+
+    private SQLiteDatabase db;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -59,20 +62,21 @@ public class LoginFragment extends Fragment {
 
     public void checkCredentials(String username, String password) {
         SQLiteDatabase db;
-        db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS polls(title VARCHAR NOT NULL PRIMARY KEY, visible VARCHAR NOT NULL);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS questions(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, question VARCHAR NOT NULL, choises VARCHAR NOT NULL," +
+        this.db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL, latitude INT, longitude INT);");
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS polls(title VARCHAR NOT NULL PRIMARY KEY, visible VARCHAR NOT NULL);");
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS questions(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, question VARCHAR NOT NULL, choises VARCHAR NOT NULL," +
                 "FOREIGN KEY(title) REFERENCES polls(title) ON DELETE CASCADE);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS summary_poll(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR, title VARCHAR NOT NULL, question VARCHAR NOT NULL, chose VARCHAR NOT NULL," +
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS summary_poll(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR, title VARCHAR NOT NULL, question VARCHAR NOT NULL, chose VARCHAR NOT NULL," +
                 "FOREIGN KEY(title) REFERENCES polls(title) ON DELETE CASCADE," +
                 "FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE);");
 
-        Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
+        Cursor c = this.db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
         if(c.moveToFirst()){
+            getLocation(username);
             int i = c.getColumnIndex("type");
             if(c.getString(i).equals("Администратор")){
-                Intent intent = new Intent(getActivity(), ResultActivity.class); // Треба ResultActivity.class
+                Intent intent = new Intent(getActivity(), ResultActivity.class);
                 intent.putExtra("username",username);
                 intent.putExtra("type",c.getString(i));
                 startActivity(intent);
@@ -82,11 +86,19 @@ public class LoginFragment extends Fragment {
                 intent.putExtra("type",c.getString(i));
                 startActivity(intent);
             }
-
         }else{
             Toast.makeText(getActivity(), "Погрешно корисничко име или лозинка", Toast.LENGTH_SHORT).show();
         }
         c.close();
+    }
+
+    private void getLocation(String username){
+        Random random = new Random();
+        int lat = random.nextInt(47-39) + 39;
+        int lon = random.nextInt(31-14) + 14;
+
+        Toast.makeText(getActivity(), lat+","+lon, Toast.LENGTH_SHORT).show();
+        this.db.execSQL("UPDATE users SET latitude='" + lat +"', longitude='" + lon + "' WHERE username='" + username + "';");
     }
 
 

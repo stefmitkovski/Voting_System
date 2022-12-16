@@ -80,7 +80,7 @@ public class RegisterFragment extends Fragment {
     public void createUser(String username, String password, String type) {
         SQLiteDatabase db;
         db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL, latitude INT, longitude INT);");
         Cursor c = db.rawQuery("SELECT * FROM users WHERE username='" + username + "'",null);
             if(c.moveToFirst()){
                 Toast.makeText(getActivity(), "Таков корисник веќе постои", Toast.LENGTH_SHORT).show();
