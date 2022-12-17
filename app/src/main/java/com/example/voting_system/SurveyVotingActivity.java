@@ -27,7 +27,7 @@ public class SurveyVotingActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         String username = getIntent().getStringExtra("username");
         Cursor voted = db.rawQuery("SELECT * FROM summary_poll WHERE username='" + username + "' AND title='" + title + "';", null);
-        if (voted.getCount() != 0) {
+        if (voted.moveToFirst()) {
             Toast.makeText(SurveyVotingActivity.this, "Веќе сте гласале на оваа анкета", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("username", getIntent().getStringExtra("username"));

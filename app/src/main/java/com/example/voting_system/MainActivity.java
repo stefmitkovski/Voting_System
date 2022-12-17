@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +17,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView voting_polls;
-    PollAdapter pAdapter;
+    static PollAdapter pAdapter;
     static List<String> values = new ArrayList<>();
     SQLiteDatabase db;
 
@@ -31,12 +33,9 @@ public class MainActivity extends AppCompatActivity {
         voting_polls.setItemAnimator(new DefaultItemAnimator());
 
         if(getIntent().getStringExtra("title") != null && getIntent().getStringExtra("timer") != null){
-            String item = getIntent().getStringExtra("title") + "," + getIntent().getStringExtra("timer");
-            values.add(item);
+            values.add(getIntent().getStringExtra("title"));
 
-            pAdapter = new PollAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), getIntent().getStringExtra("type"));
-
-            voting_polls.setAdapter(pAdapter);
+            pAdapter = new PollAdapter(values, R.layout.polls, this,Integer.parseInt(getIntent().getStringExtra("timer")));
 
             Intent intent = new Intent(this, ResultActivity.class);
             intent.putExtra("username",getIntent().getStringExtra("username"));
@@ -44,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        pAdapter = new PollAdapter(values, R.layout.polls, this, getIntent().getStringExtra("username"), getIntent().getStringExtra("type"));
 
-        voting_polls.setAdapter(pAdapter);
+            voting_polls.setAdapter(pAdapter);
 //
 //        db = openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
 //        Cursor items = db.rawQuery("SELECT * FROM polls WHERE visible='yes';",null);
@@ -62,5 +60,13 @@ public class MainActivity extends AppCompatActivity {
     public void updateVisibility(String value){
         this.db = openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
         this.db.execSQL("UPDATE polls SET visible = 'no' WHERE title = '"+ value +"';");
+    }
+
+    public void redirect(String title){
+        Intent survey_intent = new Intent(this, SurveyVotingActivity.class);
+        survey_intent.putExtra("username", getIntent().getStringExtra("username"));
+        survey_intent.putExtra("type", getIntent().getStringExtra("type"));
+        survey_intent.putExtra("title",title);
+        startActivity(survey_intent);
     }
 }

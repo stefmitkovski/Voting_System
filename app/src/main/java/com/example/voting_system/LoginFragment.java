@@ -97,7 +97,6 @@ public class LoginFragment extends Fragment {
         int lat = random.nextInt(47-39) + 39;
         int lon = random.nextInt(31-14) + 14;
 
-        Toast.makeText(getActivity(), lat+","+lon, Toast.LENGTH_SHORT).show();
         this.db.execSQL("UPDATE users SET latitude='" + lat +"', longitude='" + lon + "' WHERE username='" + username + "';");
     }
 
