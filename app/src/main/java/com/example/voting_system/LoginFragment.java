@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
     public void checkCredentials(String username, String password) {
         SQLiteDatabase db;
         this.db = getActivity().openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
-        this.db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL, latitude INT, longitude INT);");
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS users(username VARCHAR PRIMARY KEY, password VARCHAR NOT NULL, type VARCHAR NOT NULL, latitude VARCHAR, longitude VARCHAR);");
         this.db.execSQL("CREATE TABLE IF NOT EXISTS polls(title VARCHAR NOT NULL PRIMARY KEY, visible VARCHAR NOT NULL);");
         this.db.execSQL("CREATE TABLE IF NOT EXISTS questions(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, question VARCHAR NOT NULL, choises VARCHAR NOT NULL," +
                 "FOREIGN KEY(title) REFERENCES polls(title) ON DELETE CASCADE);");
