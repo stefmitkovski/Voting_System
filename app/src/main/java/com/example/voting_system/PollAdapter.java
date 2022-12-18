@@ -60,11 +60,6 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 ((MainActivity)view.getContext()).redirect(entry);
-//                Intent survey_intent = new Intent(mContext, SurveyVotingActivity.class);
-//                survey_intent.putExtra("username", );
-//                survey_intent.putExtra("type", type);
-//                survey_intent.putExtra("title",entry);
-//                mContext.startActivity(survey_intent);
             }
         });
 
@@ -77,7 +72,7 @@ public class PollAdapter extends RecyclerView.Adapter<PollAdapter.ViewHolder> {
             @Override
             public void onTick(long l) {
                 counter--;
-                holder.timer_text.setText(counter+"");
+                holder.timer_text.setText(l/1000+"");
             }
 
             @Override

@@ -70,6 +70,7 @@ public class LoginFragment extends Fragment {
         this.db.execSQL("CREATE TABLE IF NOT EXISTS summary_poll(id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR, title VARCHAR NOT NULL, question VARCHAR NOT NULL, chose VARCHAR NOT NULL," +
                 "FOREIGN KEY(title) REFERENCES polls(title) ON DELETE CASCADE," +
                 "FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE);");
+        this.db.execSQL("CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, title VARCHAR, created_time LONG, duration VARCHAR);");
 
         Cursor c = this.db.rawQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password +"'",null);
         if(c.moveToFirst()){

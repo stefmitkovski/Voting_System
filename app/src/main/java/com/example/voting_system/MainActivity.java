@@ -2,6 +2,7 @@ package com.example.voting_system;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +23,14 @@ public class MainActivity extends AppCompatActivity {
     static List<String> values = new ArrayList<>();
     SQLiteDatabase db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        long millis = (System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)) - System.currentTimeMillis();
+//        Toast.makeText(this, TimeUnit.MILLISECONDS.toMinutes(millis)+"", Toast.LENGTH_SHORT).show();
 
         voting_polls = (RecyclerView) findViewById(R.id.list_voting_polls);
 
@@ -43,18 +49,28 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-
             voting_polls.setAdapter(pAdapter);
-//
-//        db = openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE,null);
-//        Cursor items = db.rawQuery("SELECT * FROM polls WHERE visible='yes';",null);
-//
-//        if(items.moveToFirst()) {
-//            while (!items.isAfterLast()) {
-//                values.add(items.getString(items.getColumnIndex("title")));
-//                items.moveToNext();
-//            }
-//        }
+
+        if(getIntent().getStringExtra("username") != null && getIntent().getStringExtra("type").equals("Гласач")) {
+            this.db = openOrCreateDatabase("voting_system_database", Context.MODE_PRIVATE, null);
+            Cursor notifications = this.db.rawQuery("SELECT * FROM notifications", null);
+            if (notifications.moveToFirst()) {
+                while (!notifications.isAfterLast()) {
+                    String title = notifications.getString(notifications.getColumnIndex("title"));
+                    long created_time = notifications.getLong(notifications.getColumnIndex("created_time"));
+                    int timer = Integer.parseInt(notifications.getString(notifications.getColumnIndex("duration")));
+                    long current_time = System.currentTimeMillis();
+                    if(TimeUnit.MILLISECONDS.toSeconds(current_time - created_time) < TimeUnit.SECONDS.toSeconds(timer)){
+                        Toast.makeText(this, "Има уште: "+(TimeUnit.SECONDS.toSeconds(timer) - TimeUnit.MILLISECONDS.toSeconds(current_time - created_time)), Toast.LENGTH_SHORT).show();
+                    }
+                    notifications.moveToNext();
+                }
+            }
+        }else{
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public void updateVisibility(String value){

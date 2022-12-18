@@ -108,6 +108,7 @@ public class CreateActivity extends AppCompatActivity {
                         }
                         Cursor check = db.rawQuery("SELECT * FROM polls WHERE title='" + title.getText().toString() + "'", null);
                         if (check.getCount() > 0) {
+                            db.execSQL("INSERT INTO notifications(title, created_time, duration) VALUES('" + getIntent().getStringExtra("title") +"', '"+ System.currentTimeMillis() +"','"+ timer +"');");
                             Intent successful_intent = new Intent(view.getContext(), MainActivity.class);
                             successful_intent.putExtra("type", getIntent().getStringExtra("type"));
                             successful_intent.putExtra("username", getIntent().getStringExtra("username"));
