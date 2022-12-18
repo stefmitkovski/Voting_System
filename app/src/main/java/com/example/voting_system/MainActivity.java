@@ -1,7 +1,9 @@
 package com.example.voting_system;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(NotificationService.ALERT_DONE);
+        registerReceiver(new MyReceiver(), filter);
 
 //        long millis = (System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)) - System.currentTimeMillis();
 //        Toast.makeText(this, TimeUnit.MILLISECONDS.toMinutes(millis)+"", Toast.LENGTH_SHORT).show();
@@ -61,7 +67,14 @@ public class MainActivity extends AppCompatActivity {
                     int timer = Integer.parseInt(notifications.getString(notifications.getColumnIndex("duration")));
                     long current_time = System.currentTimeMillis();
                     if(TimeUnit.MILLISECONDS.toSeconds(current_time - created_time) < TimeUnit.SECONDS.toSeconds(timer)){
-                        Toast.makeText(this, "Има уште: "+(TimeUnit.SECONDS.toSeconds(timer) - TimeUnit.MILLISECONDS.toSeconds(current_time - created_time)), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, NotificationService.class);
+                        intent.putExtra("username", getIntent().getStringExtra("username"));
+                        intent.putExtra("type", getIntent().getStringExtra("type"));
+                        intent.putExtra("title", title);
+                        intent.putExtra("time",String.valueOf((TimeUnit.SECONDS.toSeconds(timer) - TimeUnit.MILLISECONDS.toSeconds(current_time - created_time))));
+                        intent.setAction(NotificationService.ALERT);
+                        startService(intent);
+//                        Toast.makeText(this, "Има уште: "+(TimeUnit.SECONDS.toSeconds(timer) - TimeUnit.MILLISECONDS.toSeconds(current_time - created_time)), Toast.LENGTH_SHORT).show();
                     }
                     notifications.moveToNext();
                 }
@@ -84,5 +97,14 @@ public class MainActivity extends AppCompatActivity {
         survey_intent.putExtra("type", getIntent().getStringExtra("type"));
         survey_intent.putExtra("title",title);
         startActivity(survey_intent);
+    }
+
+    private class MyReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals(NotificationService.ALERT_DONE)){
+            }
+        }
     }
 }
